@@ -37,21 +37,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title, style: TextStyle(color: Colors.black87),),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-      ),
-      body: _isLoading ?
-      Center(child: CircularProgressIndicator() ) :
-            RefreshIndicator (
-              onRefresh: _fetchData,
-              child: ListOfPhotos(
+        appBar: AppBar(
+          title: Text(
+            widget.title,
+            style: TextStyle(color: Colors.black87),
+          ),
+          backgroundColor: Colors.white,
+          centerTitle: true,
+        ),
+        body: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: _fetchData,
+                child: ListOfPhotos(
                   errorWhileLoading: _errorWhileLoading,
                   fetchedData: _fetchedData,
-                 ),
-            )
-      );
+                ),
+              ));
   }
 
   Future<void> _fetchData() async {
@@ -60,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     try {
       var response = await http.get(
-        'http://api.unsplash.com/photos/?client_id=cf49c08b444ff4cb9e4d126b7e9f7513ba1ee58de7906e4360afc1a33d1bf4c0');
+          'http://api.unsplash.com/photos/?client_id=cf49c08b444ff4cb9e4d126b7e9f7513ba1ee58de7906e4360afc1a33d1bf4c0');
       var decodedResponse = json.decode(response.body);
       setState(() {
         _fetchedData = decodedResponse;
