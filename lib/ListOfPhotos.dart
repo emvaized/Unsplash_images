@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import './PhotoView.dart';
 
-var file;
+var cachedPhoto;
 
 class ListOfPhotos extends StatefulWidget {
   var fetchedData;
@@ -112,7 +112,7 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                                                       child: CircularProgressIndicator());
                                                 } else if (direction ==
                                                     HeroFlightDirection.pop) {
-                                                  return Image.file(file);
+                                                  return Image.file(cachedPhoto);
                                                 }
                                               },
                                               child: new CachedNetworkImage(
@@ -159,6 +159,6 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
 
   _cacheImage(url) async {
     var newFile = await DefaultCacheManager().getSingleFile(url);
-    file = newFile;
+    cachedPhoto = newFile;
   }
 }
