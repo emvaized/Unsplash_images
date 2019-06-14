@@ -21,16 +21,12 @@ class PhotoViewScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
         ),
-        body: Hero(
-            tag: 'tag$position',
-            placeholderBuilder: (context, widget) {
-              return Container();
-            },
-            child: new PhotoView(
-              backgroundDecoration: BoxDecoration(color: Colors.white),
-              imageProvider: CachedNetworkImageProvider(photo),
-              minScale: PhotoViewComputedScale.contained * 0.8,
-              maxScale: 4.0,
-            )));
+        body: new PhotoView(
+          heroTag: 'tag$position',
+          backgroundDecoration: BoxDecoration(color: Colors.white),
+          imageProvider: CachedNetworkImageProvider(photo),
+          minScale: PhotoViewComputedScale.contained * 0.8,
+          maxScale: 4.0,
+        ));
   }
 }

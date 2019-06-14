@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import './PhotoView.dart';
 
 var file;
 
 class ListOfPhotos extends StatefulWidget {
-  var fetchedData;
-  bool errorWhileLoading = false;
+  final fetchedData;
+  final errorWhileLoading;
 
   ListOfPhotos({Key key, this.fetchedData, this.errorWhileLoading})
       : super(key: key);
-
-  String returnData(position, String key) {
-    switch (key) {
-      case 'profile_name': return fetchedData[position]['user']['username']; break;
-      case 'profile_photo': return fetchedData[position]['user']['profile_image']['small']; break;
-      case 'created': return fetchedData[position]['created_at'].toString().split('T')[0]; break;
-      case 'post_description': return fetchedData[position]['description']; break;
-      case 'post_media': return fetchedData[position]['urls']['small']; break;
-      case 'post_media_full': return fetchedData[position]['urls']['raw']; break;
-      case 'post_likes': return fetchedData[position]['likes'].toString(); break;
-      default: return null;
-    }
-  }
 
   @override
   _ListOfPhotosState createState() => _ListOfPhotosState();
 }
 
 class _ListOfPhotosState extends State<ListOfPhotos> {
+  returnData(position, String key) {
+    switch (key) {case 'profile_name': return widget.fetchedData[position]['user']['username']; break;
+      case 'profile_photo': return widget.fetchedData[position]['user']['profile_image']['small']; break;
+      case 'created': return widget.fetchedData[position]['created_at'].toString().split('T')[0]; break;
+      case 'description': return widget.fetchedData[position]['description']; break;
+      case 'photo': return widget.fetchedData[position]['urls']['small']; break;
+      case 'photo_full': return widget.fetchedData[position]['urls']['full']; break;
+      case 'photo_height': return widget.fetchedData[position]['height']; break;
+      case 'photo_width': return widget.fetchedData[position]['width']; break;
+      case 'post_likes': return widget.fetchedData[position]['likes'].toString(); break;
+      default: return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return widget.errorWhileLoading
@@ -47,77 +47,70 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                               elevation: 6,
                               margin: EdgeInsets.all(15.0),
                               child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   // CARD HEADER //////////////////////////
                                   Padding(
                                       padding: EdgeInsets.only(
-                                          left: 6.0, right: 6.0, top: 6.0),
+                                          left: 6.0,
+                                          right: 6.0,
+                                          top: 6.0,
+                                          bottom: 1.0),
                                       child: new Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           new Row(children: <Widget>[
                                             new Image.network(
-                                              widget.returnData(
-                                                  position, 'profile_photo'),
+                                              returnData(position, 'profile_photo'),
                                               height: 25,
                                             ),
                                             Padding(
                                                 padding:
                                                     EdgeInsets.only(left: 9.0),
                                                 child: new Text(
-                                                    widget.returnData(position,
-                                                        'profile_name'))),
+                                                    returnData(position, 'profile_name'))
+                                            ),
                                           ]),
                                           new Row(
                                             children: <Widget>[
                                               new Text(
-                                                widget.returnData(
-                                                    position, 'created'),
+                                                returnData(position, 'created'),
                                               ),
                                             ],
                                           ),
                                           new Row(children: <Widget>[
                                             IconButton(
-                                                icon: new Icon(
-                                                    Icons.favorite_border),
+                                                icon: new Icon(Icons.favorite_border),
                                                 onPressed: null),
-                                            Text(widget.returnData(
+                                            Text(returnData(
                                                 position, 'post_likes'))
                                           ]),
                                         ],
                                       )),
 
                                   // CARD CONTENT /////////////////////////
-                                  widget.returnData(position, 'post_description') != null
+                                  returnData(position, 'description') != null
                                       ? new ListTile(
                                           title: Padding(
                                               padding: EdgeInsets.fromLTRB(
-                                                  0.0, 3.0, 0.0, 3.0),
+                                                  0.0, 1.0, 0.0, 1.0),
                                               child: new Text(
-                                                  '${widget.returnData(position, 'post_description')}')),
+                                                  '${returnData(position, 'description')}')),
                                         )
                                       : Container(),
-                                  widget.returnData(position, 'post_media') != null
+                                  returnData(position, 'photo') != null
                                       ? Padding(
-                                          padding: EdgeInsets.all(15.0),
+                                          padding: EdgeInsets.only(
+                                              left: 12.0,
+                                              right: 12.0,
+                                              bottom: 12.0),
                                           child: Hero(
                                               tag: 'tag$position',
-                                              flightShuttleBuilder:
-                                                  (flightContext,animation,direction,fromContext,toContext) {
-                                                if (direction == HeroFlightDirection.push) {
-                                                  _cacheImage(widget.returnData(
-                                                      position, 'post_media'));
-                                                  return Center(
-                                                      child: CircularProgressIndicator());
-                                                } else if (direction ==
-                                                    HeroFlightDirection.pop) {
-                                                  return Image.file(file);
-                                                }
-                                              },
                                               child: new CachedNetworkImage(
-                                                imageUrl: widget.returnData(
-                                                    position, 'post_media'),
+                                                height: returnData(position, 'photo_height') /
+                                                        returnData(position,'photo_width') * 360,
+                                                width: 400,
+                                                imageUrl: returnData(position, 'photo'),
                                                 placeholder: (context, url) =>
                                                     new CircularProgressIndicator(),
                                               )))
@@ -144,21 +137,15 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
   }
 
   _goToFullscreenPage(position) {
-    var photo = widget.returnData(position, 'post_media_full');
-    var author = widget.returnData(position, 'profile_name');
+    var photo = returnData(position, 'photo_full');
+    var author = returnData(position, 'profile_name');
 
-    Navigator.of(context)
-        .push(new MaterialPageRoute<Map>(builder: (BuildContext context) {
+    Navigator.of(context).push(new MaterialPageRoute<Map>(builder: (BuildContext context) {
       return new PhotoViewScreen(
         position: position,
         photo: photo,
         author: author,
       );
     }));
-  }
-
-  _cacheImage(url) async {
-    var newFile = await DefaultCacheManager().getSingleFile(url);
-    file = newFile;
   }
 }

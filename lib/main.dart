@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(title: 'Unsplash Images'),
     );
   }
@@ -25,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _fetchedData;
-  bool _errorWhileLoading;
+  bool _errorWhileLoading = false;
   bool _isLoading;
 
   @override
@@ -74,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
         _errorWhileLoading = true;
         _isLoading = false;
       });
+      Scaffold.of(context).showSnackBar(new SnackBar(content: Text(error.toString())));
     }
   }
 }
