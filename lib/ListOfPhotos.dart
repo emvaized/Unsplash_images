@@ -54,11 +54,17 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                                       padding: EdgeInsets.only(
                                           left: 6.0,
                                           right: 6.0,
-                                          top: 6.0,
                                           bottom: 1.0),
                                       child: new Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
+                                          new Row(
+                                            children: <Widget>[
+                                              new Text(
+                                                returnData(position, 'created'),
+                                              ),
+                                            ],
+                                          ),
                                           new Row(children: <Widget>[
                                             new Image.network(
                                               returnData(position, 'profile_photo'),
@@ -71,13 +77,7 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                                                     returnData(position, 'profile_name'))
                                             ),
                                           ]),
-                                          new Row(
-                                            children: <Widget>[
-                                              new Text(
-                                                returnData(position, 'created'),
-                                              ),
-                                            ],
-                                          ),
+
                                           new Row(children: <Widget>[
                                             IconButton(
                                                 icon: new Icon(Icons.favorite_border),
@@ -95,7 +95,7 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                                               padding: EdgeInsets.fromLTRB(
                                                   0.0, 1.0, 0.0, 1.0),
                                               child: new Text(
-                                                  '${returnData(position, 'description')}')),
+                                                  '${returnData(position, 'description')}', textAlign: TextAlign.center,)),
                                         )
                                       : Container(),
                                   returnData(position, 'photo') != null

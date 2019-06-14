@@ -16,17 +16,18 @@ class PhotoViewScreen extends StatelessWidget {
         appBar: new AppBar(
           title: Text(
             'Фото от @$author',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.black,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: new PhotoView(
           heroTag: 'tag$position',
-          backgroundDecoration: BoxDecoration(color: Colors.white),
+          backgroundDecoration: BoxDecoration(color: Colors.black),
           imageProvider: CachedNetworkImageProvider(photo),
           minScale: PhotoViewComputedScale.contained * 0.8,
           maxScale: 4.0,
+          transitionOnUserGestures: true,
         ));
   }
 }
