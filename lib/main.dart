@@ -10,6 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          accentColor: Colors.black87,
+      ),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(title: 'Unsplash Images'),
     );

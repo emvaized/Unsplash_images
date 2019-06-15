@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+
 class PhotoViewScreen extends StatelessWidget {
   final photo;
   final position;
@@ -12,8 +13,8 @@ class PhotoViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: Colors.black,
         appBar: new AppBar(
-          elevation: 0.0,
           title: Text(
             'Фото от @$author',
             style: TextStyle(color: Colors.white),

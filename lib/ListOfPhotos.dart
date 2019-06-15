@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
 import './PhotoView.dart';
 
 
@@ -46,7 +47,6 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                               elevation: 6,
                               margin: EdgeInsets.all(15.0),
                               child: new Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   // CARD HEADER //////////////////////////
                                   Padding(
