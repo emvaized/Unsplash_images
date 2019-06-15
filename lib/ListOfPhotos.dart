@@ -55,15 +55,8 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                                           right: 6.0,
                                           bottom: 1.0),
                                       child: new Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: <Widget>[
-                                          new Row(
-                                            children: <Widget>[
-                                              new Text(
-                                                returnData(position, 'created'),
-                                              ),
-                                            ],
-                                          ),
                                           new Row(children: <Widget>[
                                             new Image.network(
                                               returnData(position, 'profile_photo'),
@@ -76,7 +69,13 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                                                     returnData(position, 'profile_name'))
                                             ),
                                           ]),
-
+                                          new Row(
+                                            children: <Widget>[
+                                              new Text(
+                                                returnData(position, 'created'),
+                                              ),
+                                            ],
+                                          ),
                                           new Row(children: <Widget>[
                                             IconButton(
                                                 icon: new Icon(Icons.favorite_border),
@@ -94,7 +93,7 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                                               padding: EdgeInsets.fromLTRB(
                                                   0.0, 1.0, 0.0, 1.0),
                                               child: new Text(
-                                                  '${returnData(position, 'description')}', textAlign: TextAlign.center,)),
+                                                  '${returnData(position, 'description')}')),
                                         )
                                       : Container(),
                                   returnData(position, 'photo') != null

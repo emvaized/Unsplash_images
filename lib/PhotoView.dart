@@ -7,13 +7,13 @@ class PhotoViewScreen extends StatelessWidget {
   final position;
   final author;
 
-  PhotoViewScreen({Key key, this.photo, this.position, this.author})
-      : super(key: key);
+  PhotoViewScreen({Key key, this.photo, this.position, this.author}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
+          elevation: 0.0,
           title: Text(
             'Фото от @$author',
             style: TextStyle(color: Colors.white),
@@ -25,6 +25,13 @@ class PhotoViewScreen extends StatelessWidget {
           heroTag: 'tag$position',
           backgroundDecoration: BoxDecoration(color: Colors.black),
           imageProvider: CachedNetworkImageProvider(photo),
+          loadingChild: Container(
+              color: Colors.black,
+              child: Center(
+                child: CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )),
           minScale: PhotoViewComputedScale.contained * 0.8,
           maxScale: 4.0,
           transitionOnUserGestures: true,
