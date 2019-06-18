@@ -29,7 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _fetchedData;
-  bool _errorWhileLoading = false;
+  bool _errorWhileLoading;
   bool _isLoading;
 
   @override
@@ -41,16 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: TextStyle(color: Colors.black87),
-          ),
-          backgroundColor: Colors.white,
-          centerTitle: true,
-        ),
         body: _isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: CircularProgressIndicator() )
             : RefreshIndicator(
                 onRefresh: _fetchData,
                 child: ListOfPhotos(
