@@ -161,6 +161,7 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
                     ))));
   }
 
+  //Метод, выводящий экран ошибки при попытке загрузки данных
   _showErrorWhileLoading() {
     return ListView(
       padding: EdgeInsets.only(top: 250),
@@ -177,6 +178,7 @@ class _ListOfPhotosState extends State<ListOfPhotos> {
     );
   }
 
+  //Метод для перехода на второй экран с фото в высоком разрешении
   _goToFullscreenPage(position) {
     var photo = returnData(position, 'photo_full');
     var author = returnData(position, 'profile_name');
