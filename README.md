@@ -1,4 +1,4 @@
-# test_app_for_devsteam
+# Unsplash Images
 
-Тестовое приложение для Devsteam.mobi
+Простое приложение, выводящее фотографии пользователей с сайта Unsplash.com в виде списка из карточек.
 
